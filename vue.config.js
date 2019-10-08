@@ -7,12 +7,7 @@ const PAGE_ENTRIES = [
 
 module.exports = {
   devServer: {
-    disableHostCheck: true,
-    overlay: {
-      warnings: false,
-      errors: true,
-    },
-    historyApiFallback: {
+    historyApiFallback: {  //当页面为404时，找到原先页面对应的首页
       rewrites: PAGE_ENTRIES.map(v => ({
         from: new RegExp(`^\\/${v}`),
         to: `/${v}.html`,
@@ -20,6 +15,7 @@ module.exports = {
     },
   },
   chainWebpack: config => {
+    //配置webpack输出
     config.entryPoints.delete('app')
     config.plugins.delete('html')
     PAGE_ENTRIES.forEach(v => {
@@ -35,21 +31,5 @@ module.exports = {
         excludeChunks: PAGE_ENTRIES.filter(item => item !== v),
       }]).before('preload')
     })
-  },
-  configureWebpack: {
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          theme: {
-            name: 'chunk-theme',
-            test: /[\\/]node_modules[\\/]element-ui[\\/]/,
-            chunks: 'all',
-            priority: 1,
-            reuseExistingChunk: true,
-            enforce: true,
-          },
-        },
-      },
-    },
   },
 };
