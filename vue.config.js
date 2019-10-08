@@ -2,8 +2,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PAGE_ENTRIES = [
   'page1',
-  'page2',
+  // 'page2',
 ];
+// let env = process.env.NODE_ENV;
+// if ( env == 'production' || env == 'test' || env == 'dev' || env == 'rc') {
+//   basturl = process.env.VUE_APP_BASEURL;
+// }
+
 
 module.exports = {
   devServer: {
